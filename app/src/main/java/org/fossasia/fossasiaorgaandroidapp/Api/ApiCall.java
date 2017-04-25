@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.app.VoiceInteractor;
 import android.content.Context;
 import android.util.Log;
+import android.widget.CheckBox;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -13,6 +14,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.fossasia.fossasiaorgaandroidapp.Utils.CheckLogin;
+import org.fossasia.fossasiaorgaandroidapp.model.UserEvents;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,26 +30,28 @@ public class ApiCall {
 
     public static final String TAG = "ApiCall";
 
-    public static void callApi(Context context, String url){
+    public static void callApi(final Context context, String url , final LoginCall.VolleyCallBack callBack){
 
         RequestQueue  queue = Volley.newRequestQueue(context);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "onResponse: " + response);
+                callBack.onSuccess(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                callBack.onError(error);
             }
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                String token = CheckLogin.isLogin(context);
                 params.put("Accept", "application/json");
-                params.put("Authorization" ,"JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE0OTMxNTE0NTMsImlkZW50aXR5IjozNDksImV4cCI6MTQ5MzIzNzg1MywibmJmIjoxNDkzMTUxNDUzfQ.qOao-2SwX3_BKGeHB0uC9L-MPpE7HhECZ-54D72pk3w");
+                params.put("Authorization" ,"JWT " + token);
                 return params;
             }
         };
