@@ -33,7 +33,7 @@ public class LoginCall {
 
     public static final String TAG = "LoginCall";
 
-    public static void login(Context context, LoginDetails details) {
+    public static void login(final Context context, LoginDetails details, final VolleyCallBack callBack) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
         Gson gson = new Gson();
@@ -56,11 +56,16 @@ public class LoginCall {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+
+                                callBack.onSuccess(token);
+
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.d(TAG, "onErrorResponse: ");
+
+                                callBack.onError(error);
                             }
                         });
 
@@ -68,5 +73,10 @@ public class LoginCall {
             queue.add(jsonObjectRequest);
         }
 
+    }
+
+    public interface VolleyCallBack{
+        void onSuccess(String result);
+        void onError(VolleyError error);
     }
 }
