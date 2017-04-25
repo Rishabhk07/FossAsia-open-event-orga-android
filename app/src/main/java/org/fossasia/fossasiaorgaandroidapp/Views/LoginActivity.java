@@ -1,6 +1,8 @@
 package org.fossasia.fossasiaorgaandroidapp.Views;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.LoginFilter;
@@ -14,6 +16,8 @@ import com.android.volley.VolleyError;
 import org.fossasia.fossasiaorgaandroidapp.Api.LoginCall;
 import org.fossasia.fossasiaorgaandroidapp.MainActivity;
 import org.fossasia.fossasiaorgaandroidapp.R;
+import org.fossasia.fossasiaorgaandroidapp.Utils.CheckLogin;
+import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
 import org.fossasia.fossasiaorgaandroidapp.model.LoginDetails;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,6 +32,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        String token = CheckLogin.isLogin(this);
+        if(!token.equals("null")){
+            startEventActivity();
+            finish();
+        }
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         etEmail = (EditText) findViewById(R.id.etEmail);
@@ -47,8 +58,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String result) {
                         Log.d(TAG, "onSuccess: " + result);
-                        Intent i =  new Intent(LoginActivity.this, EventsActivity.class);
-                        startActivity(i);
+
+                        SharedPreferences sharedPreferences = getSharedPreferences(Constants.fossPrefs,Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(Constants.sharedPrefsToken, result);
+                        editor.commit();
+                        startEventActivity();
+                        finish();
                     }
 
                     @Override
@@ -63,6 +79,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void startEventActivity(){
+        Intent i =  new Intent(LoginActivity.this, EventsActivity.class);
+        startActivity(i);
     }
 
 
