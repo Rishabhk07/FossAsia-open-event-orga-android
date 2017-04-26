@@ -14,6 +14,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_details);
         Intent i = getIntent();
         int position = i.getIntExtra("position",0);
+        int id = i.getIntExtra("id",0);
+
+
+
 
 
     }
