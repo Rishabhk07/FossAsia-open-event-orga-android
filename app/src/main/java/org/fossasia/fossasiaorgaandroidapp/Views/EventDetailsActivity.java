@@ -15,5 +15,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         Intent i = getIntent();
         int position = i.getIntExtra("position",0);
 
+
     }
 }

@@ -24,7 +24,7 @@ import java.util.EventListener;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventRecyclerViewHolder>{
 
-    ArrayList<UserEvents> eventsArrayList = new ArrayList<>();
+    static ArrayList<UserEvents> eventsArrayList = new ArrayList<>();
     Activity activity;
 
     public EventListAdapter(ArrayList<UserEvents> eventsArrayList ,Activity context) {
