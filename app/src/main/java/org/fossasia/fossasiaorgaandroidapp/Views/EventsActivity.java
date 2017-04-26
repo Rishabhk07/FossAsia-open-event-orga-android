@@ -64,5 +64,8 @@ public class EventsActivity extends AppCompatActivity {
         ApiCall.callApi(this , Constants.userEvents, volleyCallBack);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

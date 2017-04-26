@@ -1,10 +1,9 @@
 
 package org.fossasia.fossasiaorgaandroidapp.model;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("net.hexar.json2pojo")
+
 @SuppressWarnings("unused")
 public class Ticket {
 
@@ -15,7 +14,7 @@ public class Ticket {
     @SerializedName("name")
     private String mName;
     @SerializedName("price")
-    private Long mPrice;
+    private Float mPrice;
     @SerializedName("quantity")
     private Long mQuantity;
     @SerializedName("type")
@@ -45,11 +44,11 @@ public class Ticket {
         mName = name;
     }
 
-    public Long getPrice() {
+    public Float getPrice() {
         return mPrice;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Float price) {
         mPrice = price;
     }
 

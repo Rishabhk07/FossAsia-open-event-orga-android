@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To"
+            android:text=" To "
             android:padding="0dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             />
@@ -80,19 +80,33 @@
         android:layout_marginRight="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
          />
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0/0"
+        android:orientation="horizontal"
         android:paddingBottom="2dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:id="@+id/tvTicketSold" />
-
+        android:layout_marginRight="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:id="@+id/tvTicketSold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:id="@+id/tvTicketTotal" />
+    </LinearLayout>
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
@@ -100,7 +114,7 @@
         android:max="100"
         android:maxHeight="10dip"
         android:minHeight="10dip"
-        android:progress="50"
+        android:progress="0"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:id="@+id/progressTicketSold"
@@ -137,7 +151,7 @@
         android:max="100"
         android:maxHeight="10dip"
         android:minHeight="10dip"
-        android:progress="50"
+        android:progress="0"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:id="@+id/progressAttendance"
@@ -147,7 +161,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CHECKIN"
+        android:text="CHECK IN"
         android:layout_alignParentBottom="true"
         android:layout_margin="0dp"
         android:padding="0dp"
