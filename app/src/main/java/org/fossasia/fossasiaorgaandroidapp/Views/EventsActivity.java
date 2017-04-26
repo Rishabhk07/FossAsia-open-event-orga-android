@@ -2,9 +2,11 @@ package org.fossasia.fossasiaorgaandroidapp.Views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -18,17 +20,24 @@ import org.fossasia.fossasiaorgaandroidapp.model.UserEvents;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class EventsActivity extends AppCompatActivity {
 
     public static final String TAG = "EventsActivity";
     RecyclerView recyclerView;
+    ArrayList<UserEvents> userEventsArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
         recyclerView = (RecyclerView) findViewById(R.id.rvEventList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        final EventListAdapter eventListAdapter = new EventListAdapter(userEventsArrayList , this);
+        recyclerView.setAdapter(eventListAdapter);
+
 
         LoginCall.VolleyCallBack volleyCallBack = new LoginCall.VolleyCallBack() {
             @Override
@@ -39,28 +48,21 @@ public class EventsActivity extends AppCompatActivity {
                 for (UserEvents event : userEvents){
                     Log.d(TAG, "onSuccess: " + event.getName());
                 }
+                List<UserEvents> eventList = Arrays.asList(userEvents);
+                userEventsArrayList.addAll(eventList);
 
-                ArrayList<UserEvents> userEventsArrayList = new ArrayList<>(Arrays.asList(userEvents));
-                inflateEvents(userEventsArrayList);
-
+                eventListAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onError(VolleyError error) {
+                Log.d(TAG, "onError: " + error.toString());
+                Toast.makeText(EventsActivity.this, "Could not fetch Events", Toast.LENGTH_SHORT).show();
 
             }
         };
         ApiCall.callApi(this , Constants.userEvents, volleyCallBack);
     }
 
-    public void inflateEvents(ArrayList<UserEvents> eventsArrayList){
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-
-        EventListAdapter eventListAdapter = new EventListAdapter(eventsArrayList , this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(eventListAdapter);
-        eventListAdapter.notifyDataSetChanged();
-
-    }
 
 }

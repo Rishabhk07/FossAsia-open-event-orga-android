@@ -1,6 +1,7 @@
 package org.fossasia.fossasiaorgaandroidapp.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.fossasia.fossasiaorgaandroidapp.R;
+import org.fossasia.fossasiaorgaandroidapp.Views.EventDetailsActivity;
 import org.fossasia.fossasiaorgaandroidapp.model.UserEvents;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 
 /**
  * Created by rishabhkhanna on 26/04/17.
@@ -35,16 +38,35 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         LayoutInflater li = activity.getLayoutInflater();
         View itemView = li.inflate(R.layout.event_layout,null);
 
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         EventRecyclerViewHolder eventRecyclerViewHolder  = new EventRecyclerViewHolder(itemView);
         return eventRecyclerViewHolder;
     }
 
-    @Override
-    public void onBindViewHolder(EventRecyclerViewHolder holder, int position) {
 
-        UserEvents thisEvent = eventsArrayList.get(position);
+
+    @Override
+    public void onBindViewHolder(EventRecyclerViewHolder holder, final int position) {
+
+        final UserEvents thisEvent = eventsArrayList.get(position);
         holder.eventTitle.setText(thisEvent.getName());
         Picasso.with(activity).load(thisEvent.getThumbnail()).into(holder.eventImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity , EventDetailsActivity.class);
+                i.putExtra("position",position);
+                activity.startActivity(i);
+            }
+        });
+
 
     }
 

@@ -51,6 +51,7 @@ public class ApiCall {
                 Map<String, String> params = new HashMap<>();
                 String token = CheckLogin.isLogin(context);
                 params.put("Accept", "application/json");
+                Log.d(TAG, "getHeaders: " + token);
                 params.put("Authorization" ,"JWT " + token);
                 return params;
             }
