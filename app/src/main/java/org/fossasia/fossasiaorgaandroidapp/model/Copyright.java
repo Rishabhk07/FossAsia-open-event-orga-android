@@ -1,15 +1,17 @@
 
 package org.fossasia.fossasiaorgaandroidapp.model;
 
-
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+@Generated("net.hexar.json2pojo")
+@SuppressWarnings("unused")
 public class Copyright {
 
     @SerializedName("holder")
     private String mHolder;
     @SerializedName("holder_url")
-    private String mHolderUrl;
+    private Object mHolderUrl;
     @SerializedName("licence")
     private String mLicence;
     @SerializedName("licence_url")
@@ -27,11 +29,11 @@ public class Copyright {
         mHolder = holder;
     }
 
-    public String getHolderUrl() {
+    public Object getHolderUrl() {
         return mHolderUrl;
     }
 
-    public void setHolderUrl(String holderUrl) {
+    public void setHolderUrl(Object holderUrl) {
         mHolderUrl = holderUrl;
     }
 

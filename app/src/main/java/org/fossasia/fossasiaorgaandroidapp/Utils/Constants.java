@@ -11,6 +11,12 @@ public class Constants {
     public static final String userEvents = "http://open-event-dev.herokuapp.com/api/v1/users/me/events";
     //users events api
     public static final String userDetails = "http://open-event-dev.herokuapp.com/api/v1/users";
+    //event details
+    public static final String eventDetails = "http://open-event-dev.herokuapp.com/api/v1/events/";
+    //event details tickets
+    public static final String tickets = "?include=tickets";
+    //Attendees details
+    public static final String attendees = "/attendees";
     //SharedPrefs key
     public static final String sharedPrefsToken = "token";
     //SharedPrefs db Name

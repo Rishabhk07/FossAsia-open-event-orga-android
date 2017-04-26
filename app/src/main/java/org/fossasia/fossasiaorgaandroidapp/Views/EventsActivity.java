@@ -26,7 +26,7 @@ public class EventsActivity extends AppCompatActivity {
 
     public static final String TAG = "EventsActivity";
     RecyclerView recyclerView;
-    ArrayList<UserEvents> userEventsArrayList = new ArrayList<>();
+    static ArrayList<UserEvents> userEventsArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
