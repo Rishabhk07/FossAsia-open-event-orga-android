@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -25,9 +27,11 @@ import java.util.List;
 public class AttendeeListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     AttendeeDetails[] attendeeDetails;
-    ArrayList<AttendeeDetails> attendeeDetailsArrayList = new ArrayList<>();
+    static ArrayList<AttendeeDetails> attendeeDetailsArrayList = new ArrayList<>();
     AttendeeListAdapter attendeeListAdapter;
+    Button btnBarCodeScanner;
     long id;
+    public static final int REQ_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,13 @@ public class AttendeeListActivity extends AppCompatActivity {
         Intent i = getIntent();
         id = i.getLongExtra("id",0);
         recyclerView = (RecyclerView) findViewById(R.id.rvAttendeeList);
+        btnBarCodeScanner = (Button) findViewById(R.id.btnScanQr);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         attendeeListAdapter = new AttendeeListAdapter(attendeeDetailsArrayList, this , id);
         recyclerView.setAdapter(attendeeListAdapter);
         recyclerView.setLayoutManager(layoutManager);
         getAttendees();
+
     }
 
     public void getAttendees(){
@@ -53,11 +59,20 @@ public class AttendeeListActivity extends AppCompatActivity {
                 List<AttendeeDetails> attendeeDetailsesList = Arrays.asList(attendeeDetails);
                 attendeeDetailsArrayList.addAll(attendeeDetailsesList);
                 attendeeListAdapter.notifyDataSetChanged();
+                btnBarCodeScanner.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onError(VolleyError error) {
 
+            }
+        });
+
+        btnBarCodeScanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AttendeeListActivity.this , ScanQRActivity.class);
+                startActivityForResult(i,123);
             }
         });
     }

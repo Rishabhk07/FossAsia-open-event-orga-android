@@ -61,7 +61,7 @@ public class ApiCall {
             }
         };
 
-        int socketTimeout = 30000; // 30 seconds. You can change it
+        int socketTimeout = 90000; // 90 seconds. You can change it
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
@@ -96,7 +96,11 @@ public class ApiCall {
                 return params;
             }
         };
-
+        int socketTimeout = 90000; // 30 seconds. You can change it
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
         queue.add(stringRequest);
 
     }
