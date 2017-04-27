@@ -38,6 +38,9 @@ public class EventDetailsActivity extends AppCompatActivity {
     long quantity = 0;
     int attendeeTrue = 0;
     int attendeeTotal = 0;
+    static AttendeeDetails[] attendeeDetailses;
+    static String urlTickets;
+    static String urlAttendees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +62,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         int position = i.getIntExtra("position",0);
         long id = i.getLongExtra("id",0);
         final Gson gson = new Gson();
-        String urlTickets = Constants.eventDetails + id + Constants.tickets;
-        String urlAttendees = Constants.eventDetails + EventsActivity.userEventsArrayList.get(position).getId() + Constants.attendees;
+        urlTickets = Constants.eventDetails + id + Constants.tickets;
+         urlAttendees = Constants.eventDetails + EventsActivity.userEventsArrayList.get(position).getId() + Constants.attendees;
         ApiCall.callApi(this, urlTickets, new LoginCall.VolleyCallBack() {
             @Override
             public void onSuccess(String result) {
@@ -94,7 +97,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 Log.d(TAG, "onSuccess: " + result);
                 attendeeTotal = 0;
                 attendeeTrue = 0;
-                AttendeeDetails[] attendeeDetailses = gson.fromJson(result , AttendeeDetails[].class);
+                attendeeDetailses = gson.fromJson(result , AttendeeDetails[].class);
                 for(AttendeeDetails thisAttendee : attendeeDetailses){
                     if(thisAttendee.getCheckedIn()){
                         attendeeTrue++;
@@ -126,11 +129,6 @@ public class EventDetailsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
-
-
-
 
     }
 }
