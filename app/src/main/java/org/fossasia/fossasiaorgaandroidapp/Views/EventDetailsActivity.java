@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     TextView tvTicketTotal;
     ProgressBar pbTickets;
     ProgressBar pbAttendees;
+    Button btnCheckin;
     public static final String TAG = "EventDetailActivity";
     long quantity = 0;
     int attendeeTrue = 0;
@@ -51,6 +54,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         tvTicketTotal = (TextView) findViewById(R.id.tvTicketTotal);
         pbTickets = (ProgressBar) findViewById(R.id.progressTicketSold);
         pbAttendees = (ProgressBar) findViewById(R.id.progressAttendance);
+        btnCheckin = (Button) findViewById(R.id.btnCheckin);
 
         int position = i.getIntExtra("position",0);
         long id = i.getLongExtra("id",0);
@@ -114,6 +118,15 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             }
         });
+
+        btnCheckin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EventDetailsActivity.this , AttendeeListActivity.class);
+                startActivity(i);
+            }
+        });
+
 
 
 

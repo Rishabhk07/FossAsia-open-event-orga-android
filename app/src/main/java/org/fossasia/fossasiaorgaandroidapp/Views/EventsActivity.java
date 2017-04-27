@@ -6,6 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -37,6 +38,8 @@ public class EventsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         final EventListAdapter eventListAdapter = new EventListAdapter(userEventsArrayList , this);
         recyclerView.setAdapter(eventListAdapter);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this , DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
 
 
         LoginCall.VolleyCallBack volleyCallBack = new LoginCall.VolleyCallBack() {

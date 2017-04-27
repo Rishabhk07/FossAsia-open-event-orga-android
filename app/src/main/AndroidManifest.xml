@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Views.EventsActivity" />
-        <activity android:name=".Views.EventDetailsActivity"></activity>
+        <activity android:name=".Views.EventDetailsActivity" />
+        <activity android:name=".Views.AttendeeListActivity"></activity>
     </application>
 
 </manifest>
