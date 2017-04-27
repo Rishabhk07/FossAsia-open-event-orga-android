@@ -18,8 +18,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.fossasia.fossasiaorgaandroidapp.Interfaces.VolleyCallBack;
 import org.fossasia.fossasiaorgaandroidapp.Utils.CheckLogin;
 import org.fossasia.fossasiaorgaandroidapp.model.UserEvents;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,6 +66,37 @@ public class ApiCall {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
+        queue.add(stringRequest);
+
+    }
+
+    public static void PostApiCall(final Context context , String url , final LoginCall.VolleyCallBack callBack){
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "onResponse: " + response);
+                callBack.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callBack.onError(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                String token = CheckLogin.isLogin(context);
+                params.put("Accept", "application/json");
+                Log.d(TAG, "getHeaders: " + token);
+                params.put("Authorization" ,"JWT " + token);
+                return params;
+            }
+        };
+
         queue.add(stringRequest);
 
     }

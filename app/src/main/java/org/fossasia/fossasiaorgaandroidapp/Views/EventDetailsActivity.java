@@ -60,7 +60,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         btnCheckin = (Button) findViewById(R.id.btnCheckin);
 
         int position = i.getIntExtra("position",0);
-        long id = i.getLongExtra("id",0);
+        final long id = i.getLongExtra("id",0);
         final Gson gson = new Gson();
         urlTickets = Constants.eventDetails + id + Constants.tickets;
          urlAttendees = Constants.eventDetails + EventsActivity.userEventsArrayList.get(position).getId() + Constants.attendees;
@@ -126,6 +126,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(EventDetailsActivity.this , AttendeeListActivity.class);
+                i.putExtra("id" , id);
                 startActivity(i);
             }
         });

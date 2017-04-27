@@ -1,5 +1,6 @@
 package org.fossasia.fossasiaorgaandroidapp.Views;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,14 +27,17 @@ public class AttendeeListActivity extends AppCompatActivity {
     AttendeeDetails[] attendeeDetails;
     ArrayList<AttendeeDetails> attendeeDetailsArrayList = new ArrayList<>();
     AttendeeListAdapter attendeeListAdapter;
+    long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendee_list);
+        Intent i = getIntent();
+        id = i.getLongExtra("id",0);
         recyclerView = (RecyclerView) findViewById(R.id.rvAttendeeList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        attendeeListAdapter = new AttendeeListAdapter(attendeeDetailsArrayList, this);
+        attendeeListAdapter = new AttendeeListAdapter(attendeeDetailsArrayList, this , id);
         recyclerView.setAdapter(attendeeListAdapter);
         recyclerView.setLayoutManager(layoutManager);
         getAttendees();

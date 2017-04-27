@@ -13,6 +13,8 @@ public class Constants {
     public static final String userDetails = "http://open-event-dev.herokuapp.com/api/v1/users";
     //event details
     public static final String eventDetails = "http://open-event-dev.herokuapp.com/api/v1/events/";
+    // attendees toggle
+    public static final String attendeesToggle = "/attendees/check_in_toggle/";
     //event details tickets
     public static final String tickets = "?include=tickets";
     //Attendees details
