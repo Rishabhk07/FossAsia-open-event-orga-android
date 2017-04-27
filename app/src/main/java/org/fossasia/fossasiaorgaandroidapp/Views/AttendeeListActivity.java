@@ -7,6 +7,7 @@ import org.fossasia.fossasiaorgaandroidapp.R;
 
 public class AttendeeListActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
