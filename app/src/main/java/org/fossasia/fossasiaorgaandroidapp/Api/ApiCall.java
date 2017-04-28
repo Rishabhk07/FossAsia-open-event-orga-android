@@ -34,7 +34,7 @@ public class ApiCall {
 
     public static final String TAG = "ApiCall";
 
-    public static void callApi(final Context context, String url , final LoginCall.VolleyCallBack callBack){
+    public static void callApi(final Context context, String url , final VolleyCallBack callBack){
 
         RequestQueue  queue = Volley.newRequestQueue(context);
 
@@ -70,7 +70,7 @@ public class ApiCall {
 
     }
 
-    public static void PostApiCall(final Context context , String url , final LoginCall.VolleyCallBack callBack){
+    public static void PostApiCall(final Context context , String url , final VolleyCallBack callBack){
 
         RequestQueue queue = Volley.newRequestQueue(context);
 

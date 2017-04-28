@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 
 import org.fossasia.fossasiaorgaandroidapp.Api.LoginCall;
+import org.fossasia.fossasiaorgaandroidapp.Interfaces.VolleyCallBack;
 import org.fossasia.fossasiaorgaandroidapp.MainActivity;
 import org.fossasia.fossasiaorgaandroidapp.R;
 import org.fossasia.fossasiaorgaandroidapp.Utils.CheckLogin;
@@ -56,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                 password = etPassword.getText().toString();
                 LoginDetails loginDetails = new LoginDetails(email, password);
 
-                LoginCall.VolleyCallBack volleyCallBack  = new LoginCall.VolleyCallBack() {
+                VolleyCallBack volleyCallBack  = new VolleyCallBack() {
                     @Override
                     public void onSuccess(String result) {
                         Log.d(TAG, "onSuccess: " + result);

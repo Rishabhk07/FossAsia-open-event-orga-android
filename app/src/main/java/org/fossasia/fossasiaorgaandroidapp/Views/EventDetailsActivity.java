@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import org.fossasia.fossasiaorgaandroidapp.Api.ApiCall;
 import org.fossasia.fossasiaorgaandroidapp.Api.LoginCall;
+import org.fossasia.fossasiaorgaandroidapp.Interfaces.VolleyCallBack;
 import org.fossasia.fossasiaorgaandroidapp.R;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Network;
@@ -66,7 +67,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         final Gson gson = new Gson();
         urlTickets = Constants.eventDetails + id + Constants.tickets;
          urlAttendees = Constants.eventDetails + EventsActivity.userEventsArrayList.get(position).getId() + Constants.attendees;
-        ApiCall.callApi(this, urlTickets, new LoginCall.VolleyCallBack() {
+        ApiCall.callApi(this, urlTickets, new VolleyCallBack() {
             @Override
             public void onSuccess(String result) {
                 EventDetails eventDetails = gson.fromJson(result , EventDetails.class);
@@ -93,7 +94,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
         });
         if(Network.isNetworkConnected(this)) {
-            ApiCall.callApi(this, urlAttendees, new LoginCall.VolleyCallBack() {
+            ApiCall.callApi(this, urlAttendees, new VolleyCallBack() {
                 @Override
                 public void onSuccess(String result) {
                     Log.d(TAG, "onSuccess: " + result);

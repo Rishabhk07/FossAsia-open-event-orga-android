@@ -20,6 +20,7 @@ import com.google.gson.internal.bind.ArrayTypeAdapter;
 
 import org.fossasia.fossasiaorgaandroidapp.Api.ApiCall;
 import org.fossasia.fossasiaorgaandroidapp.Api.LoginCall;
+import org.fossasia.fossasiaorgaandroidapp.Interfaces.VolleyCallBack;
 import org.fossasia.fossasiaorgaandroidapp.R;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
 import org.fossasia.fossasiaorgaandroidapp.model.AttendeeDetails;
@@ -121,7 +122,7 @@ public class AttendeeListAdapter extends RecyclerView.Adapter<AttendeeListAdapte
     }
 
     public void changeCheckStatus(Activity activity, AttendeeDetails thisAttendee, final Button btnCheckedIn, final ArrayList<AttendeeDetails> attendeeDetailses, final int position){
-        ApiCall.PostApiCall(activity, Constants.eventDetails +id + Constants.attendeesToggle + thisAttendee.getId(), new LoginCall.VolleyCallBack() {
+        ApiCall.PostApiCall(activity, Constants.eventDetails +id + Constants.attendeesToggle + thisAttendee.getId(), new VolleyCallBack() {
             @Override
             public void onSuccess(String result) {
                 Log.d(TAG, "onSuccess: " + result);

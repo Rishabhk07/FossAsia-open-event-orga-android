@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import org.fossasia.fossasiaorgaandroidapp.Adapters.EventListAdapter;
 import org.fossasia.fossasiaorgaandroidapp.Api.ApiCall;
 import org.fossasia.fossasiaorgaandroidapp.Api.LoginCall;
+import org.fossasia.fossasiaorgaandroidapp.Interfaces.VolleyCallBack;
 import org.fossasia.fossasiaorgaandroidapp.R;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Network;
@@ -43,7 +44,7 @@ public class EventsActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(itemDecoration);
 
 
-        LoginCall.VolleyCallBack volleyCallBack = new LoginCall.VolleyCallBack() {
+        VolleyCallBack volleyCallBack = new VolleyCallBack() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();

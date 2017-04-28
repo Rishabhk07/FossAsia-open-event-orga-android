@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.fossasia.fossasiaorgaandroidapp.Interfaces.VolleyCallBack;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Network;
 import org.fossasia.fossasiaorgaandroidapp.model.LoginDetails;
@@ -76,8 +77,8 @@ public class LoginCall {
 
     }
 
-    public interface VolleyCallBack{
-        void onSuccess(String result);
-        void onError(VolleyError error);
-    }
+//    public interface VolleyCallBack{
+//        void onSuccess(String result);
+//        void onError(VolleyError error);
+//    }
 }
