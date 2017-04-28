@@ -112,7 +112,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                 pbAttendees.setProgress((int)attendeeTrue/attendeeTotal);
                 if(quantity != 0)
-                pbTickets.setProgress((int) (attendeeTotal/quantity));
+                pbTickets.setProgress((int)( (attendeeTotal/quantity) * pbTickets.getMax()));
 
             }
 
@@ -131,5 +131,17 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
     }
 }

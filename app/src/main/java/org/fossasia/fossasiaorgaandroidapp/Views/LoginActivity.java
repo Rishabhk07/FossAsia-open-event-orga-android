@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String result) {
                         Log.d(TAG, "onSuccess: " + result);
-
                         SharedPreferences sharedPreferences = getSharedPreferences(Constants.fossPrefs,Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(Constants.sharedPrefsToken, result);
