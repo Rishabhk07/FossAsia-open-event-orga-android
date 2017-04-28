@@ -17,6 +17,7 @@ import org.fossasia.fossasiaorgaandroidapp.Api.ApiCall;
 import org.fossasia.fossasiaorgaandroidapp.Api.LoginCall;
 import org.fossasia.fossasiaorgaandroidapp.R;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
+import org.fossasia.fossasiaorgaandroidapp.Utils.Network;
 import org.fossasia.fossasiaorgaandroidapp.model.UserEvents;
 
 import java.util.ArrayList;
@@ -64,7 +65,11 @@ public class EventsActivity extends AppCompatActivity {
 
             }
         };
-        ApiCall.callApi(this , Constants.userEvents, volleyCallBack);
+        if(Network.isNetworkConnected(this)) {
+            ApiCall.callApi(this, Constants.userEvents, volleyCallBack);
+        }else{
+            Toast.makeText(this, Constants.noNetwork, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

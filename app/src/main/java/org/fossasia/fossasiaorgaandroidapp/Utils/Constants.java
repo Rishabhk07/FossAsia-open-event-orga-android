@@ -33,5 +33,7 @@ public class Constants {
     public static final String AttendeeCheckingOut = "Cheching Out";
     //attende scanned index
     public static final String scannedIndex = "index";
+    //No network available string
+    public static final String noNetwork = "Network Not Available";
 
 }

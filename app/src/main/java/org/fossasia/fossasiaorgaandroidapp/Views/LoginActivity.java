@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
@@ -18,6 +19,7 @@ import org.fossasia.fossasiaorgaandroidapp.MainActivity;
 import org.fossasia.fossasiaorgaandroidapp.R;
 import org.fossasia.fossasiaorgaandroidapp.Utils.CheckLogin;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
+import org.fossasia.fossasiaorgaandroidapp.Utils.Network;
 import org.fossasia.fossasiaorgaandroidapp.model.LoginDetails;
 
 public class LoginActivity extends AppCompatActivity {
@@ -71,8 +73,11 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(TAG, "onError: " + error);
                     }
                 };
-
-                LoginCall.login(LoginActivity.this , loginDetails, volleyCallBack);
+                if(Network.isNetworkConnected(LoginActivity.this)) {
+                    LoginCall.login(LoginActivity.this, loginDetails, volleyCallBack);
+                }else{
+                    Toast.makeText(LoginActivity.this, Constants.noNetwork, Toast.LENGTH_SHORT).show();
+                }
 
 
             }

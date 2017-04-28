@@ -121,7 +121,6 @@ public class AttendeeListAdapter extends RecyclerView.Adapter<AttendeeListAdapte
     }
 
     public void changeCheckStatus(Activity activity, AttendeeDetails thisAttendee, final Button btnCheckedIn, final ArrayList<AttendeeDetails> attendeeDetailses, final int position){
-
         ApiCall.PostApiCall(activity, Constants.eventDetails +id + Constants.attendeesToggle + thisAttendee.getId(), new LoginCall.VolleyCallBack() {
             @Override
             public void onSuccess(String result) {

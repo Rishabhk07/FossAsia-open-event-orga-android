@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -16,6 +17,7 @@ import org.fossasia.fossasiaorgaandroidapp.Api.ApiCall;
 import org.fossasia.fossasiaorgaandroidapp.Api.LoginCall;
 import org.fossasia.fossasiaorgaandroidapp.R;
 import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
+import org.fossasia.fossasiaorgaandroidapp.Utils.Network;
 import org.fossasia.fossasiaorgaandroidapp.model.AttendeeDetails;
 import org.fossasia.fossasiaorgaandroidapp.model.EventDetails;
 import org.fossasia.fossasiaorgaandroidapp.model.Ticket;
@@ -90,37 +92,41 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             }
         });
+        if(Network.isNetworkConnected(this)) {
+            ApiCall.callApi(this, urlAttendees, new LoginCall.VolleyCallBack() {
+                @Override
+                public void onSuccess(String result) {
+                    Log.d(TAG, "onSuccess: " + result);
+                    attendeeTotal = 0;
+                    attendeeTrue = 0;
+                    attendeeDetailses = gson.fromJson(result, AttendeeDetails[].class);
+                    for (AttendeeDetails thisAttendee : attendeeDetailses) {
+                        if (thisAttendee.getCheckedIn()) {
+                            attendeeTrue++;
+                        }
+                        attendeeTotal++;
 
-        ApiCall.callApi(this, urlAttendees, new LoginCall.VolleyCallBack() {
-            @Override
-            public void onSuccess(String result) {
-                Log.d(TAG, "onSuccess: " + result);
-                attendeeTotal = 0;
-                attendeeTrue = 0;
-                attendeeDetailses = gson.fromJson(result , AttendeeDetails[].class);
-                for(AttendeeDetails thisAttendee : attendeeDetailses){
-                    if(thisAttendee.getCheckedIn()){
-                        attendeeTrue++;
                     }
-                    attendeeTotal++;
+
+
+                    tvAttendees.setText(String.valueOf(attendeeTrue) + "/" + String.valueOf(attendeeTotal));
+                    tvTicketSold.setText(String.valueOf(attendeeTotal));
+
+                    pbAttendees.setProgress((int) attendeeTrue / attendeeTotal);
+                    Log.d(TAG, "onSuccess: " + (int) ((attendeeTotal / quantity) * pbTickets.getMax()));
+                    if (quantity != 0)
+                        pbTickets.setProgress((int) ((attendeeTotal / quantity) * pbTickets.getMax()));
 
                 }
 
+                @Override
+                public void onError(VolleyError error) {
 
-                tvAttendees.setText(String.valueOf(attendeeTrue) + "/" + String.valueOf(attendeeTotal));
-                tvTicketSold.setText(String.valueOf(attendeeTotal));
-
-                pbAttendees.setProgress((int)attendeeTrue/attendeeTotal);
-                if(quantity != 0)
-                pbTickets.setProgress((int)( (attendeeTotal/quantity) * pbTickets.getMax()));
-
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-
-            }
-        });
+                }
+            });
+        }else{
+            Toast.makeText(this, Constants.noNetwork, Toast.LENGTH_SHORT).show();
+        }
 
         btnCheckin.setOnClickListener(new View.OnClickListener() {
             @Override
