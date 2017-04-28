@@ -23,6 +23,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import org.fossasia.fossasiaorgaandroidapp.Adapters.AttendeeListAdapter;
 import org.fossasia.fossasiaorgaandroidapp.R;
+import org.fossasia.fossasiaorgaandroidapp.Utils.Constants;
 import org.fossasia.fossasiaorgaandroidapp.model.AttendeeDetails;
 
 import java.io.IOException;
@@ -68,13 +69,20 @@ public class ScanQRActivity extends AppCompatActivity {
                     String barcode = barcodes.valueAt(0).displayValue;
                     Log.d(TAG, "receiveDetections: not matched" + barcode.toString());
                     ArrayList<AttendeeDetails> attendeeDetailses = AttendeeListActivity.attendeeDetailsArrayList;
+                    int index = -1;
                     for (AttendeeDetails thisAttendee : attendeeDetailses) {
+                        index++;
                         Log.d(TAG, "receiveDetections: " + thisAttendee.getOrder().getIdentifier().equals(barcode));
                         String identifier = thisAttendee.getOrder().getIdentifier() + "-" + thisAttendee.getId();
                         if (identifier.equals(barcode)) {
                             Log.d(TAG, "receiveDetections: ");
-//                            Intent resultIntent = new Intent();
-//                            resultIntent.putExtra("")
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra(Constants.scannedIdentifier,thisAttendee.getOrder().getIdentifier());
+                            resultIntent.putExtra(Constants.scannedId,thisAttendee.getId());
+                            resultIntent.putExtra(Constants.scannedIndex,index);
+                            setResult(AttendeeListActivity.REQ_CODE , resultIntent );
+                            finish();
+
                         }
                     }
                 }

@@ -1,6 +1,8 @@
 package org.fossasia.fossasiaorgaandroidapp.Views;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +34,8 @@ public class AttendeeListActivity extends AppCompatActivity {
     Button btnBarCodeScanner;
     long id;
     public static final int REQ_CODE = 123;
+    public static final String TAG = "AttendeeListActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,5 +79,66 @@ public class AttendeeListActivity extends AppCompatActivity {
                 startActivityForResult(i,123);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CODE){
+            String identifier = data.getStringExtra(Constants.scannedIdentifier);
+            long id = data.getLongExtra(Constants.scannedId , 0);
+            int index = data.getIntExtra(Constants.scannedIndex,-1);
+            if(index != -1)
+            checkInAlertBuiler(index);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void checkInAlertBuiler(final int index){
+        AlertDialog.Builder builder
+                  = new AlertDialog.Builder(this);
+        String alertTitle  = "";
+        final AttendeeDetails thisAttendee = attendeeDetailsArrayList.get(index);
+        if(thisAttendee.getCheckedIn()){
+            alertTitle = Constants.AttendeeCheckingOut;
+        }else{
+            alertTitle = Constants.attendeeChechingIn;
+        }
+
+        builder.setTitle(alertTitle).setMessage(thisAttendee.getFirstname() + " "
+                + thisAttendee.getLastname() + "\n"
+                + "Ticket: " + thisAttendee.getTicket().getType() )
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "onClick: inside ok");
+                        changeCheckStatus(thisAttendee.getId() , index);
+                    }
+                }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+
+    public void changeCheckStatus(Long thisAttendeeId, final int position){
+        ApiCall.PostApiCall(this, Constants.eventDetails +id + Constants.attendeesToggle + thisAttendeeId, new LoginCall.VolleyCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                Log.d(TAG, "onSuccess: " + result);
+                Gson gson = new Gson();
+                AttendeeDetails newattendeeDetailses = gson.fromJson(result,AttendeeDetails.class);
+                attendeeDetailsArrayList.set(position , newattendeeDetailses);
+                attendeeListAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+
     }
 }

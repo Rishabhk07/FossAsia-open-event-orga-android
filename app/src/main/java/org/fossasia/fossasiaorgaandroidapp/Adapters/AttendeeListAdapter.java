@@ -71,7 +71,13 @@ public class AttendeeListAdapter extends RecyclerView.Adapter<AttendeeListAdapte
             public void onClick(View v) {
                 Log.d(TAG, "onClick: alert builder click");
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setTitle("Checking In").setMessage(thisAttendee.getFirstname() + " "
+                String alertTitle  = "";
+                if(thisAttendee.getCheckedIn()){
+                    alertTitle = Constants.AttendeeCheckingOut;
+                }else{
+                    alertTitle = Constants.attendeeChechingIn;
+                }
+                builder.setTitle(alertTitle).setMessage(thisAttendee.getFirstname() + " "
                         + thisAttendee.getLastname() + "\n"
                         + "Ticket: " + thisAttendee.getTicket().getType() )
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {

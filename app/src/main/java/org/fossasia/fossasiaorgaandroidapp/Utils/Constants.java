@@ -23,5 +23,15 @@ public class Constants {
     public static final String sharedPrefsToken = "token";
     //SharedPrefs db Name
     public static final String fossPrefs = "FossPrefs";
+    //ScanQR identifier
+    public static final String scannedIdentifier = "identifier";
+    //ScanQR id
+    public static final String scannedId = "id";
+    //attendee cheching in
+    public static final String attendeeChechingIn = "Checking In";
+    //attendee checking Out
+    public static final String AttendeeCheckingOut = "Cheching Out";
+    //attende scanned index
+    public static final String scannedIndex = "index";
 
 }
