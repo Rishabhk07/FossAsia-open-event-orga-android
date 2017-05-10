@@ -76,9 +76,4 @@ public class LoginCall {
         }
 
     }
-
-//    public interface VolleyCallBack{
-//        void onSuccess(String result);
-//        void onError(VolleyError error);
-//    }
 }

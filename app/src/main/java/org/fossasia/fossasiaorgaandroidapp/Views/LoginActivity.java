@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         String token = CheckLogin.isLogin(this);
+        //check if token is already present
         if(!token.equals("null")){
             startEventActivity();
             finish();
